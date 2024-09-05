@@ -12,6 +12,7 @@ set(BUILD_SHARED_LIBS FALSE)
 include(FetchContent)
 set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
 
+
 FetchContent_Declare(ftxui
   GIT_REPOSITORY "https://github.com/ArthurSonzogni/ftxui"
   GIT_TAG "a715a767b56245024dfa7469f301e4f39b866ee1"
@@ -29,14 +30,18 @@ FetchContent_MakeAvailable(json)
 # add_executable(z-flash src/uitest.cpp)
 add_executable(z-flash 
 src/main.cpp
-src/args.cpp
+src/api.cpp
 )
+
+
+find_package( CURL REQUIRED )
 
 target_link_libraries(z-flash
   PRIVATE ftxui::screen
   PRIVATE ftxui::dom
   PRIVATE ftxui::component
   PRIVATE nlohmann_json::nlohmann_json
+  PRIVATE CURL::libcurl
 )
 
-set_target_properties(z-flash PROPERTIES CXX_STANDARD 17)
+set_target_properties(z-flash PROPERTIES CXX_STANDARD 20)
